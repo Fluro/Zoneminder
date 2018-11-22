@@ -31,3 +31,4 @@ https://docs.docker.com/compose/compose-file/#short-syntax-3
 ## Using docker swarm:
 Change the compose file to use a restart policy instead. 
 
+#### Feedback: Please let me know if there are any issues or impovemenets. 

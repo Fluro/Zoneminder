@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 volumes:
   zm-data:
   mysql-data:
@@ -16,8 +16,8 @@ services:
       - db
     environment:
       ZM_DB_NAME: zm
-      ZM_DB_USER: root
-      ZM_DB_PASS: testrootpass
+      ZM_DB_USER: zmuser
+      ZM_DB_PASS: zmpass
       ZM_DB_HOST: db
     restart: unless-stopped
     command: /usr/local/bin/startzm.sh
@@ -28,7 +28,8 @@ services:
     image: mariadb:10.3.11
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: testrootpass
+#      MYSQL_ROOT_PASSWORD: testrootpass
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_USER: zmuser
       MYSQL_PASSWORD: zmpass
       MYSQL_DATABASE: zm

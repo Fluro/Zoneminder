@@ -18,6 +18,7 @@ RUN ln -sf /etc/zm/www/zoneminder.conf /etc/httpd/conf.d/
 RUN echo "ServerName localhost" > /etc/httpd/conf.d/servername.conf
 RUN echo -e "# Redirect the webroot to /zm\nRedirectMatch permanent ^/$ /zm" > /etc/httpd/conf.d/redirect.conf
 
+	
 # Get the entrypoint script and make sure it is executable
 COPY scripts/entrypoint.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/entrypoint.sh

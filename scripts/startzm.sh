@@ -34,24 +34,15 @@ chk_remote_mysql () {
         echo -n " * Looking for remote database server"
         if [ "$(mysql_running)" -eq "1" ]; then
             echo "   ...found."
-        else
-            echo "   ...failed!"
-            return
-        fi
-        echo -n " * Looking for existing remote database"
-        if [ "$(zm_db_exists)" -eq "1" ]; then
-            echo "   ...found."
-        else
-            echo "   ...not found."
             echo -n " * Attempting to create remote database using provided credentials"
             mysql -u${ZM_DB_USER} -p${ZM_DB_PASS} -h${ZM_DB_HOST} < $ZMCREATE > /dev/null 2>&1
             RETVAL=$?
             if [ "$RETVAL" = "0" ]; then
                 echo "   ...done."
-            else
-                echo "   ...failed!"
-                echo " * Error: Remote database must be manually configred."
-            fi
+        else
+            echo "   ...failed!"
+            return
+        fi
         fi
 }
 
