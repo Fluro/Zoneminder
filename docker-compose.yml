@@ -1,0 +1,38 @@
+version: '3.7'
+volumes:
+  zm-data:
+  mysql-data:
+services:
+  app:
+    ports:
+      - 443:443
+      - 80:80
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      ZM_DB_NAME: zm
+      ZM_DB_USER: root
+      ZM_DB_PASS: testrootpass
+      ZM_DB_HOST: db
+    restart: unless-stopped
+    command: /usr/local/bin/startzm.sh
+    volumes:
+      - zm-data:/srv/zoneminder/
+        
+  db:
+    image: mariadb:10.3.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: testrootpass
+      MYSQL_USER: zmuser
+      MYSQL_PASSWORD: zmpass
+      MYSQL_DATABASE: zm
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+     test: ["CMD", "mysqladmin", "ping", "--silent"]
